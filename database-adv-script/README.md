@@ -105,3 +105,29 @@ Use SQL aggregation and window functions to analyze data.
     FROM bookings
     GROUP BY property_id;
     ```
+
+
+## Implement Indexes for Optimization
+
+### Objective
+
+Identify and create indexes to improve query performance.
+
+### Instructions
+
+1. **Identify High-Usage Columns:**  
+    Review your `users`, `bookings`, and `properties` tables to determine which columns are frequently used in `WHERE`, `JOIN`, or `ORDER BY` clauses (e.g., `user_id`, `property_id`, `email`).
+
+2. **Create Indexes:**  
+    Write SQL `CREATE INDEX` statements for these columns and save them in a file named `database_index.sql`.  
+    *Example:*  
+    ```sql
+    CREATE INDEX idx_users_email ON users(email);
+    CREATE INDEX idx_bookings_user_id ON bookings(user_id);
+    CREATE INDEX idx_bookings_property_id ON bookings(property_id);
+    CREATE INDEX idx_properties_location ON properties(location);
+    ```
+
+3. **Measure Performance:**  
+    Use `EXPLAIN` or `ANALYZE` to compare query performance before and after adding indexes. Document your findings.
+
