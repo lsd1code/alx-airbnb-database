@@ -39,3 +39,40 @@ Follow the tasks below to practice and demonstrate your understanding of SQL joi
 
 - Test each query to ensure it returns the expected results.
 - Review the differences between `INNER JOIN`, `LEFT JOIN`, and `FULL OUTER JOIN` to understand when to use each.
+
+
+## Practice Subqueries
+
+### Objective
+
+Write both correlated and non-correlated subqueries.
+
+### Instructions
+
+1. **Average Rating Subquery:**  
+    Write a query to find all properties where the average rating is greater than 4.0 using a subquery.  
+    *Example:*  
+    ```sql
+    SELECT *
+    FROM properties
+    WHERE id IN (
+      SELECT property_id
+      FROM reviews
+      GROUP BY property_id
+      HAVING AVG(rating) > 4.0
+    );
+    ```
+
+2. **Correlated Subquery for Users:**  
+    Write a correlated subquery to find users who have made more than 3 bookings.  
+    *Example:*  
+    ```sql
+    SELECT *
+    FROM users u
+    WHERE (
+      SELECT COUNT(*)
+      FROM bookings b
+      WHERE b.user_id = u.id
+    ) > 3;
+    ```
+
