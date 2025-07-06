@@ -129,5 +129,53 @@ Identify and create indexes to improve query performance.
     ```
 
 3. **Measure Performance:**  
-    Use `EXPLAIN` or `ANALYZE` to compare query performance before and after adding indexes. Document your findings.
+    Use the `EXPLAIN` or `ANALYZE` statement to compare the execution plans and performance of your queries before and after adding indexes.  
+    - Run your queries with `EXPLAIN` (or `EXPLAIN ANALYZE` if supported) and note the query plan and execution time.  
+    - Add the relevant indexes.  
+    - Run the same queries again with `EXPLAIN`/`ANALYZE` and compare the results.  
+    - Document your observations, highlighting any improvements in query speed or changes in the execution plan.
+
+    **Example:**
+
+    ```sql
+    -- Before adding indexes
+    EXPLAIN SELECT * FROM bookings WHERE user_id = 5;
+
+    -- Add index
+    CREATE INDEX idx_bookings_user_id ON bookings(user_id);
+
+    -- After adding index
+    EXPLAIN SELECT * FROM bookings WHERE user_id = 5;
+    ```
+
+    ```sql
+    -- Before adding indexes
+    EXPLAIN SELECT * FROM properties WHERE location = 'New York';
+
+    -- Add index
+    CREATE INDEX idx_properties_location ON properties(location);
+
+    -- After adding index
+    EXPLAIN SELECT * FROM properties WHERE location = 'New York';
+    ```
+
+    ```sql
+    -- Before adding indexes
+    EXPLAIN
+    SELECT p.*, r.*
+    FROM properties p
+    LEFT JOIN reviews r ON p.id = r.property_id
+    WHERE p.location = 'Paris';
+
+    -- Add indexes
+    CREATE INDEX idx_properties_location ON properties(location);
+    CREATE INDEX idx_reviews_property_id ON reviews(property_id);
+
+    -- After adding indexes
+    EXPLAIN
+    SELECT p.*, r.*
+    FROM properties p
+    LEFT JOIN reviews r ON p.id = r.property_id
+    WHERE p.location = 'Paris';
+    ```
 
