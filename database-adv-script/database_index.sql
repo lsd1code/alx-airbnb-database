@@ -5,7 +5,7 @@ CREATE INDEX idx_bookings_property_id ON bookings(property_id);
 CREATE INDEX idx_properties_location ON properties(location);
 
 -- Before adding indexes
-EXPLAIN
+EXPLAIN ANALYZE
 SELECT p.*, r.*
 FROM properties p
 LEFT JOIN reviews r ON p.id = r.property_id
@@ -16,7 +16,7 @@ CREATE INDEX idx_properties_location ON properties(location);
 CREATE INDEX idx_reviews_property_id ON reviews(property_id);
 
 -- After adding indexes
-EXPLAIN
+EXPLAIN ANALYZE
 SELECT p.*, r.*
 FROM properties p
 LEFT JOIN reviews r ON p.id = r.property_id

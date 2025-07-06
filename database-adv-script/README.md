@@ -160,8 +160,9 @@ Identify and create indexes to improve query performance.
     ```
 
     ```sql
+    ```sql
     -- Before adding indexes
-    EXPLAIN
+    EXPLAIN ANALYZE
     SELECT p.*, r.*
     FROM properties p
     LEFT JOIN reviews r ON p.id = r.property_id
@@ -172,10 +173,11 @@ Identify and create indexes to improve query performance.
     CREATE INDEX idx_reviews_property_id ON reviews(property_id);
 
     -- After adding indexes
-    EXPLAIN
+    EXPLAIN ANALYZE
     SELECT p.*, r.*
     FROM properties p
     LEFT JOIN reviews r ON p.id = r.property_id
     WHERE p.location = 'Paris';
+    ```
     ```
 
