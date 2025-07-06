@@ -76,3 +76,32 @@ Write both correlated and non-correlated subqueries.
     ) > 3;
     ```
 
+
+## Apply Aggregations and Window Functions
+
+### Objective
+
+Use SQL aggregation and window functions to analyze data.
+
+### Instructions
+
+1. **Total Bookings per User:**  
+    Write a query to find the total number of bookings made by each user, using the `COUNT` function and `GROUP BY` clause.  
+    *Example:*  
+    ```sql
+    SELECT user_id, COUNT(*) AS total_bookings
+    FROM bookings
+    GROUP BY user_id;
+    ```
+
+2. **Rank Properties by Bookings:**  
+    Use a window function (`ROW_NUMBER`, `RANK`, or `DENSE_RANK`) to rank properties based on the total number of bookings they have received.  
+    *Example:*  
+    ```sql
+    SELECT
+      property_id,
+      COUNT(*) AS total_bookings,
+      RANK() OVER (ORDER BY COUNT(*) DESC) AS booking_rank
+    FROM bookings
+    GROUP BY property_id;
+    ```
