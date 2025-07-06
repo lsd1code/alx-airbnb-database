@@ -210,6 +210,34 @@ Refactor complex queries to improve performance.
     ```
 
 4. **Compare Performance:**  
-    Use `EXPLAIN` or `EXPLAIN ANALYZE` again to compare the execution plan and performance before and after refactoring. Document your findings and any improvements in query speed or efficiency.
+    Use `EXPLAIN` or `EXPLAIN ANALYZE` again to compare the execution plan and performance before and after refactoring. For example:
+
+    ```sql
+    -- Before refactoring
+    EXPLAIN ANALYZE
+    SELECT
+        b.*,
+        u.*,
+        p.*,
+        pay.*
+    FROM bookings b
+    INNER JOIN users u ON b.user_id = u.id
+    INNER JOIN properties p ON b.property_id = p.id
+    LEFT JOIN payments pay ON b.id = pay.booking_id;
+
+    -- After refactoring
+    EXPLAIN ANALYZE
+    SELECT
+        b.id AS booking_id,
+        u.name AS user_name,
+        p.title AS property_title,
+        pay.amount AS payment_amount
+    FROM bookings b
+    INNER JOIN users u ON b.user_id = u.id
+    INNER JOIN properties p ON b.property_id = p.id
+    LEFT JOIN payments pay ON b.id = pay.booking_id;
+    ```
+
+Document your findings and any improvements in query speed or efficiency.
 
 
